@@ -1,0 +1,145 @@
+ Skill India Q\&A Flow Explanation
+
+1. **Skill India Document is Loaded**
+
+* Your program first **loads the Skill India text file** (like `skill_india.txt`).
+* This file contains all the important information about the Skill India program.
+
+2. **Document is Split into Small Pieces**
+
+* The loaded document is **split into smaller chunks** (for example, pieces of 500 characters).
+* This makes it easier for the program to search and retrieve relevant parts quickly.
+
+3. **Create Embeddings (Vector Representation)**
+
+* Each chunk is converted into a **vector embedding** using Cohere’s embedding model.
+* Embeddings are like a mathematical summary of the text, capturing the meaning of each chunk.
+
+4. **Store Embeddings in a Vector Database (FAISS)**
+
+* These embeddings are saved into a **FAISS vector store**, which allows fast searching of relevant chunks.
+
+5. **User Asks a Question About Skill India**
+
+* You enter a question like:
+  *“What are the objectives of Skill India?”*
+
+6. **Retrieve Relevant Chunks Based on Question**
+
+* Your program converts the question into an embedding too.
+* It searches the vector store to **find the chunks most related** to your question.
+
+7. **Pass Retrieved Chunks + Question to Language Model**
+
+* The program sends the question **along with the most relevant text chunks** to the Cohere language model.
+* This gives the model context to generate an accurate answer.
+
+8. **Get Answer and Display to User**
+
+* Cohere generates a natural language answer based on the input.
+* Your program shows this answer on the screen as a response to your question.
+
+### Summary:
+
+* Load Skill India text → split and embed chunks → store embeddings →
+* User asks question → convert question to embedding → search for relevant chunks →
+* Send chunks + question to Cohere → get answer → display answer
+
+----------------------------------------------------------------------------------------------
+
+### Institution Info Fetching Flow Explanation
+
+1. **User Inputs Institution Name**
+
+* The user types in the name of an institution, for example:
+  *“Indian Institute of Technology”*
+
+2. **Fetch Wikipedia Content**
+
+* Your program uses the **Wikipedia API** to get the content (text) of the institution’s Wikipedia page.
+* It grabs a limited portion of the content (like the first 2000 characters) to keep things concise.
+
+3. **Define the Desired Output Schema Using Pydantic**
+
+* You define a **template (schema)** of the details you want to extract, such as:
+
+  * Founder
+  * Founded Year
+  * Current Branches
+  * Number of Employees
+  * A brief 4-line summary
+
+4. **Create a Prompt Template for the Language Model**
+
+* The program creates a **prompt template** combining:
+
+  * The fetched Wikipedia content
+  * The instructions about the output format (from Pydantic)
+  * The institution name
+
+5. **Send the Prompt to the Language Model (Cohere)**
+
+* The prompt with the Wikipedia content and instructions is passed to Cohere’s language model.
+* The model reads the content and extracts the requested information in the structured format you defined.
+
+6. **Parse the Model Output Using Pydantic**
+
+* The model’s response is parsed by Pydantic into a neat data object with fields like founder, founded, branches, etc.
+* This ensures the output is clean, structured, and easy to display.
+
+7. **Display the Extracted Institution Details**
+
+* Your program then shows these details clearly on the screen for the user.
+
+### Summary:
+
+* User inputs institution name → fetch Wikipedia page content →
+* Define what info to extract (founder, branches, etc.) → prepare prompt →
+* Send prompt + content to Cohere → parse response into structured data →
+* Show institution info to user
+
+-------------------------------------------------------------------------------------------
+
+
+### Indian Penal Code Chatbot Flow Explanation
+
+1. **Load the IPC Document**  
+- Your program loads the full text of the Indian Penal Code saved in a file (like `ipc.txt`).  
+- This text is usually very long, so it needs to be handled carefully.
+
+2. **Split the Document into Smaller Pieces**  
+- The big IPC text is split into smaller chunks (for example, 500 characters each) to make it easier for the AI model to process.  
+- This splitting helps the chatbot quickly find relevant parts to answer user questions.
+
+3. **Create Embeddings for Each Chunk**  
+- Each chunk is converted into a mathematical representation called an **embedding** using the Cohere API.  
+- These embeddings help the system understand the meaning of each chunk.
+
+4. **Build a Vector Store to Search Chunks**  
+- All the chunk embeddings are stored in a **vector database** (like FAISS).  
+- This database helps the chatbot quickly find the most relevant chunks when the user asks a question.
+
+5. **User Asks a Question**  
+- The user types a question about the Indian Penal Code, for example:  
+  *“What is the punishment for theft?”*
+
+6. **Retrieve Relevant Chunks**  
+- The chatbot uses the vector store to find the chunks most related to the user’s question.  
+- It searches for chunks whose embeddings closely match the question’s embedding.
+
+7. **Generate the Answer Using the Language Model (Cohere)**  
+- The chatbot sends the relevant chunks and the user’s question to the Cohere language model.  
+- The model reads these chunks and generates a clear, concise answer based on the Indian Penal Code text.
+
+8. **Display the Answer to the User**  
+- The chatbot shows the answer to the user in a conversational format.  
+- The user can then ask follow-up questions and keep chatting about the IPC.
+
+---
+
+### Summary:
+
+- Load IPC text → split into small chunks → create embeddings → store embeddings in vector database →  
+- User asks question → retrieve relevant chunks → send to Cohere LLM → generate and display answer → user can chat more  
+
+---------------------------------------------------------------------------------------------------
